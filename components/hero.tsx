@@ -2,10 +2,12 @@
 import { useEffect, useRef } from 'react';
 
 export default function HeroSection() {
-  const imgRef = useRef(null);
+  const imgRef = useRef<HTMLImageElement | null>(null);
+
 
   useEffect(() => {
-    const handleMouseMove = (e) => {
+    const handleMouseMove = (e: MouseEvent) => {
+
       if (!imgRef.current) return;
 
       const { innerWidth, innerHeight } = window;
