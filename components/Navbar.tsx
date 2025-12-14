@@ -24,7 +24,7 @@ export default function Navbar() {
               {['Beranda', 'Profil', 'Program', 'Kontak'].map((item) => (
                 <a
                   key={item}
-                  href="#"
+                  href={item}
                   className="text-base text-black/80 hover:text-black transition"
                 >
                   {item}
@@ -80,7 +80,7 @@ export default function Navbar() {
               {['Beranda', 'Profil', 'Program', 'Kontak'].map((item) => (
                 <a
                   key={item}
-                  href="#"
+                  href={item}
                   className="text-black text-base hover:text-green-600 transition"
                 >
                   {item}
