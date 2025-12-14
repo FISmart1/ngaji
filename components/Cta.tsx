@@ -2,7 +2,7 @@
 import { useEffect, useRef } from "react";
 
 export default function CTASection() {
-  const ref = useRef(null);
+  const ref = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
     const el = ref.current;
