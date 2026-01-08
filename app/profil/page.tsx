@@ -2,25 +2,39 @@
 
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
-import { motion } from 'framer-motion';
+import { motion, Variants, easeOut } from "framer-motion";
+
+
 
 /* ================= ANIMATION ================= */
-const fadeUp = {
+const fadeUp: Variants = {
   hidden: { opacity: 0, y: 40 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.8, ease: [0.16, 1, 0.3, 1] // smooth & premium
- } },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.8, ease: easeOut },
+  },
 };
 
-const fadeLeft = {
-  hidden: { opacity: 0, x: -60 },
-  visible: { opacity: 1, x: 0, transition: { duration: 0.9, ease: [0.16, 1, 0.3, 1] // smooth & premium
- } },
-};
-
-const fadeRight = {
+const fadeRight: Variants = {
   hidden: { opacity: 0, x: 60 },
-  visible: { opacity: 1, x: 0, transition: { duration: 0.9, ease: [0.16, 1, 0.3, 1] // smooth & premium
- } },
+  visible: {
+    opacity: 1,
+    x: 0,
+    transition: { duration: 0.9, ease: easeOut },
+  },
+};
+
+const fadeLeft: Variants = {
+  hidden: { opacity: 0, x: -60 },
+  visible: {
+    opacity: 1,
+    x: 0,
+    transition: {
+      duration: 0.9,
+      ease: easeOut, // ✅ FIX
+    },
+  },
 };
 
 const stagger = {
