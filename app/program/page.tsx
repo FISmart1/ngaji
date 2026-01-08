@@ -105,7 +105,11 @@ export default function ProgramPage() {
 
       {/* ================= SEARCH FLOAT ================= */}
       <section className="-mt-24 px-6 relative z-20">
-        <div className="max-w-4xl mx-auto bg-white rounded-3xl shadow-xl p-6 flex items-center gap-4">
+        <div className="
+  max-w-4xl mx-auto bg-white rounded-3xl shadow-xl p-6
+  flex flex-col sm:flex-row gap-4
+">
+
           <input
             type="text"
             placeholder="Cari nama program..."
@@ -124,7 +128,13 @@ export default function ProgramPage() {
         <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-4 gap-12">
 
           {/* ===== FILTER SIDEBAR ===== */}
-          <aside className="lg:col-span-1 bg-white rounded-3xl shadow-lg p-8 h-fit sticky top-28">
+          <aside className="
+  lg:col-span-1
+  bg-white rounded-3xl shadow-lg p-6
+  h-fit
+  lg:sticky lg:top-28
+">
+
             <h3 className="font-bold text-lg mb-6">Filter Program</h3>
 
             {/* LEVEL */}
