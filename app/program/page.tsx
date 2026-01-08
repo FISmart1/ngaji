@@ -1,177 +1,202 @@
 'use client';
-import { useState } from 'react';
+
 import Navbar from '@/components/Navbar';
+import Footer from '@/components/Footer';
+import { motion } from 'framer-motion';
+import { useState } from 'react';
 
-type Program = {
-  id: number;
-  title: string;
-  level: string;
-  duration: string;
-  image: string;
-  desc: string;
-  detail: string;
-  benefits: string[];
-};
-
-
-const programs: Program[] = [
+const programs = [
   {
     id: 1,
-    title: 'Fiqih Dasar',
+    title: 'Fiqih Ibadah',
     level: 'Pemula',
-    duration: 'Online',
+    mapel: 'Fiqih',
     image: '/program/fiqih.jpg',
-    desc: 'Belajar fiqih dari nol',
-    detail: 'Program ini membahas hukum-hukum dasar Islam yang sering ditemui dalam kehidupan sehari-hari secara praktis dan mudah dipahami.',
-    benefits: ['Pemahaman fiqih ibadah sehari-hari', 'Materi terstruktur & mudah dipahami', 'Pembimbing berpengalaman', 'Akses materi selamanya'],
+    duration: '6 Minggu',
+    desc: 'Pembahasan thaharah, shalat, puasa, dan ibadah harian.',
   },
   {
     id: 2,
-    title: 'Tafsir Al-Qur’an',
+    title: 'Fiqih Muamalah',
     level: 'Menengah',
-    desc: 'Memahami makna ayat Al-Qur’an secara kontekstual.',
-    detail: 'Peserta akan mempelajari tafsir ayat-ayat pilihan, latar belakang turunnya ayat, serta penerapannya dalam kehidupan modern. Cocok untuk yang sudah terbiasa membaca Al-Qur’an.',
-    duration: 'Online',
-    image: '/program/tafsir.jpeg',
-    benefits: ['Pemahaman fiqih ibadah sehari-hari', 'Materi terstruktur & mudah dipahami', 'Pembimbing berpengalaman', 'Akses materi selamanya'],
+    mapel: 'Fiqih',
+    image: '/program/fiqih2.jpg',
+    duration: '8 Minggu',
+    desc: 'Memahami transaksi dan muamalah sesuai syariat.',
   },
   {
     id: 3,
-    title: 'Tahsin & Tajwid',
-    level: 'Semua Level',
-    desc: 'Memperbaiki bacaan Al-Qur’an sesuai kaidah tajwid.',
-    detail: 'Fokus pada makharijul huruf, sifat huruf, dan penerapan tajwid secara praktik. Tersedia sesi evaluasi bacaan bersama mentor.',
-    duration: 'Online',
-    image: '/program/quran.jpeg',
-    benefits: ['Pemahaman fiqih ibadah sehari-hari', 'Materi terstruktur & mudah dipahami', 'Pembimbing berpengalaman', 'Akses materi selamanya'],
+    title: 'Tajwid Dasar',
+    level: 'Pemula',
+    mapel: 'Tajwid',
+    image: '/program/tajwid.jpg',
+    duration: '6 Minggu',
+    desc: 'Makharijul huruf dan hukum bacaan dasar.',
+  },
+  {
+    id: 4,
+    title: 'Tajwid Lanjutan',
+    level: 'Menengah',
+    mapel: 'Tajwid',
+    image: '/program/tajwid2.jpg',
+    duration: '8 Minggu',
+    desc: 'Pendalaman gharib dan tajwid tingkat lanjut.',
+  },
+  {
+    id: 5,
+    title: 'Tafsir Tematik',
+    level: 'Menengah',
+    mapel: 'Tafsir',
+    image: '/program/tafsir.jpeg',
+    duration: '10 Minggu',
+    desc: 'Mengkaji tema kehidupan dari ayat Al-Qur’an.',
+  },
+  {
+    id: 6,
+    title: 'Adab & Akhlaq Muslim',
+    level: 'Pemula',
+    mapel: 'Akhlaq',
+    image: '/program/adab.jpg',
+    duration: '4 Minggu',
+    desc: 'Membentuk karakter dan akhlaq Islami.',
   },
 ];
 
 export default function ProgramPage() {
-  const [selected, setSelected] = useState<Program | null>(null);
+  const [search, setSearch] = useState('');
+  const [level, setLevel] = useState('Semua');
+  const [mapel, setMapel] = useState('Semua');
 
+  const filtered = programs.filter((p) => {
+    const matchSearch = p.title.toLowerCase().includes(search.toLowerCase());
+    const matchLevel = level === 'Semua' || p.level === level;
+    const matchMapel = mapel === 'Semua' || p.mapel === mapel;
+    return matchSearch && matchLevel && matchMapel;
+  });
 
   return (
-    <div>
+    <div className="bg-[#FCF8F1] min-h-screen">
       <Navbar />
-      <section className="w-full bg-[#FCF8F1] py-24 px-6">
-        <div className="max-w-7xl mx-auto">
-          {/* Header */}
-          <div className="text-center mb-16 py-10">
-            <h1 className="text-4xl md:text-6xl font-bold text-gray-800">
-              Program <span className="text-green-600">Kelas</span>
-            </h1>
-            <p className="mt-4 text-gray-600 max-w-2xl mx-auto">Seperti Skilvul, kami menyediakan kelas terstruktur untuk mendukung perjalanan belajar ngaji dan keislaman secara bertahap.</p>
-          </div>
 
-          {/* Cards */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10">
-            {programs.map((item) => (
-              <div
+      {/* ================= HERO ================= */}
+      <section className="pt-32 pb-40 px-6 relative overflow-hidden">
+        <div className="absolute -top-40 -right-40 w-[420px] h-[420px] bg-green-300/30 rounded-full blur-3xl" />
+        <div className="absolute top-32 -left-40 w-[420px] h-[420px] bg-yellow-300/30 rounded-full blur-3xl" />
+
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          animate={{ opacity: 1, y: 0 }}
+          className="relative max-w-5xl mx-auto text-center"
+        >
+          <span className="inline-block mb-4 text-xs font-semibold px-4 py-1 rounded-full bg-green-100 text-green-700">
+            Program Kelas
+          </span>
+
+          <h1 className="text-4xl md:text-6xl font-extrabold text-gray-900">
+            Temukan Kelas <br />
+            <span className="text-green-600">Sesuai Tujuanmu</span>
+          </h1>
+
+          <p className="mt-6 text-gray-700 text-lg max-w-3xl mx-auto">
+            Kelas Islami terstruktur dengan mentor berpengalaman dan komunitas aktif.
+          </p>
+        </motion.div>
+      </section>
+
+      {/* ================= SEARCH FLOAT ================= */}
+      <section className="-mt-24 px-6 relative z-20">
+        <div className="max-w-4xl mx-auto bg-white rounded-3xl shadow-xl p-6 flex items-center gap-4">
+          <input
+            type="text"
+            placeholder="Cari nama program..."
+            value={search}
+            onChange={(e) => setSearch(e.target.value)}
+            className="flex-1 px-6 py-4 rounded-full bg-gray-100 focus:outline-none"
+          />
+          <button className="px-8 py-4 rounded-full bg-green-600 text-white font-semibold">
+            Cari
+          </button>
+        </div>
+      </section>
+
+      {/* ================= CONTENT ================= */}
+      <section className="px-6 pt-24 pb-32">
+        <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-4 gap-12">
+
+          {/* ===== FILTER SIDEBAR ===== */}
+          <aside className="lg:col-span-1 bg-white rounded-3xl shadow-lg p-8 h-fit sticky top-28">
+            <h3 className="font-bold text-lg mb-6">Filter Program</h3>
+
+            {/* LEVEL */}
+            <div className="mb-8">
+              <p className="text-sm font-semibold mb-4">Level</p>
+              {['Semua', 'Pemula', 'Menengah'].map((item) => (
+                <label key={item} className="flex items-center gap-3 mb-3 text-sm">
+                  <input
+                    type="radio"
+                    checked={level === item}
+                    onChange={() => setLevel(item)}
+                    className="accent-green-600"
+                  />
+                  {item}
+                </label>
+              ))}
+            </div>
+
+            {/* MAPEL */}
+            <div>
+              <p className="text-sm font-semibold mb-4">Mata Pelajaran</p>
+              {['Semua', 'Fiqih', 'Tajwid', 'Tafsir', 'Akhlaq'].map((item) => (
+                <label key={item} className="flex items-center gap-3 mb-3 text-sm">
+                  <input
+                    type="radio"
+                    checked={mapel === item}
+                    onChange={() => setMapel(item)}
+                    className="accent-green-600"
+                  />
+                  {item}
+                </label>
+              ))}
+            </div>
+          </aside>
+
+          {/* ===== PROGRAM GRID ===== */}
+          <div className="lg:col-span-3 grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-10">
+            {filtered.map((item) => (
+              <motion.div
                 key={item.id}
-                className="bg-white rounded-3xl shadow-lg overflow-hidden
-             flex flex-col justify-between
-             transition hover:shadow-xl"
+                initial={{ opacity: 0, y: 40 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                className="group bg-white rounded-3xl overflow-hidden shadow-lg hover:shadow-2xl transition"
               >
-                {/* Image */}
-                <div className="relative h-44 w-full">
-                  <img src={item.image} alt={item.title} className="w-full h-full object-cover" />
-                  {/* overlay tipis */}
-                  <div className="absolute inset-0 bg-black/10" />
+                <div className="relative h-48">
+                  <img
+                    src={item.image}
+                    alt={item.title}
+                    className="w-full h-full object-cover group-hover:scale-110 transition duration-700"
+                  />
+                  <div className="absolute top-4 left-4 px-4 py-1 rounded-full text-xs font-semibold bg-black/70 text-white">
+                    {item.mapel}
+                  </div>
                 </div>
 
-                {/* Content */}
-                <div className="p-8 flex flex-col justify-between h-full">
-                  <div>
-                    <h3 className="text-2xl font-bold text-gray-800 mb-3">{item.title}</h3>
+                <div className="p-7 flex flex-col h-full">
+                  <h3 className="font-bold text-xl mb-2">{item.title}</h3>
+                  <p className="text-sm text-gray-500 mb-3">{item.duration}</p>
+                  <p className="text-gray-700 text-sm mb-6 flex-1">{item.desc}</p>
 
-                    <p className="text-gray-600 text-sm leading-relaxed">{item.desc}</p>
-                  </div>
-
-                  <button
-                    onClick={() => setSelected(item)}
-                    className="mt-8 px-6 py-3 rounded-xl
-                 bg-green-600 text-white font-semibold
-                 hover:bg-green-700 transition"
-                  >
+                  <button className="w-full py-3 rounded-full bg-black text-white font-semibold hover:bg-green-600 transition">
                     Lihat Detail
                   </button>
                 </div>
-              </div>
+              </motion.div>
             ))}
           </div>
         </div>
-
-        {/* Modal */}
-        {selected && (
-          <div className="fixed inset-0 z-[2000] bg-black/50 flex items-center justify-center px-4">
-            <div className="bg-white max-w-4xl w-full rounded-3xl shadow-2xl p-10 animate-fadeIn relative">
-              {/* Close */}
-              <button onClick={() => setSelected(null)} className="absolute top-6 right-6 text-gray-400 hover:text-gray-700">
-                ✕
-              </button>
-
-              {/* TOP SECTION */}
-              <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 items-start">
-                {/* LEFT — TEXT */}
-                <div>
-                  <span className="inline-block mb-4 text-xs font-semibold px-4 py-1 rounded-full bg-green-100 text-green-700">{selected.level}</span>
-
-                  <h3 className="text-4xl font-extrabold text-gray-900 leading-tight mb-3">{selected.title}</h3>
-
-                  <p className="text-sm text-gray-500 mb-6">Lokasi Pembelajaran · {selected.duration}</p>
-
-                  <p className="text-gray-700 leading-relaxed text-base">{selected.detail}</p>
-                </div>
-
-                {/* RIGHT — IMAGE */}
-                <div className="w-full">
-                  <div className="rounded-2xl overflow-hidden shadow-lg">
-                    <img src={selected.image} alt={selected.title} className="w-full h-56 object-cover" />
-                  </div>
-                </div>
-              </div>
-
-              {/* DIVIDER */}
-              <div className="my-10 h-px bg-gray-200" />
-
-              {/* BENEFITS */}
-              <div>
-                <h4 className="text-lg font-semibold text-gray-900 mb-6">Yang akan kamu pelajari</h4>
-
-                <ul className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-sm text-gray-700">
-                  {selected.benefits.map((item, i) => (
-                    <li key={i} className="flex items-start gap-3">
-                      <span className="text-green-600 font-bold mt-0.5">✓</span>
-                      <span>{item}</span>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-
-              {/* CTA */}
-              <div className="mt-10 flex flex-col sm:flex-row gap-4">
-                <button
-                  className="flex-1 py-4 rounded-full bg-green-600
-                   text-white font-semibold
-                   hover:bg-green-700 transition"
-                >
-                  Daftar Sekarang
-                </button>
-
-                <button
-                  onClick={() => setSelected(null)}
-                  className="flex-1 py-4 rounded-full
-                   border border-gray-300
-                   hover:bg-gray-100 transition"
-                >
-                  Tutup
-                </button>
-              </div>
-            </div>
-          </div>
-        )}
       </section>
+
+      <Footer />
     </div>
   );
 }

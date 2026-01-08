@@ -1,56 +1,119 @@
 'use client';
 
 import Navbar from '@/components/Navbar';
-import { motion } from 'framer-motion';
-import { fadeUp, fade, stagger } from '@/components/animations';
 import Footer from '@/components/Footer';
+import { motion } from 'framer-motion';
 
+/* ================= ANIMATION ================= */
+const fadeUp = {
+  hidden: { opacity: 0, y: 40 },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.8, ease: 'easeOut' } },
+};
+
+const fadeLeft = {
+  hidden: { opacity: 0, x: -60 },
+  visible: { opacity: 1, x: 0, transition: { duration: 0.9, ease: 'easeOut' } },
+};
+
+const fadeRight = {
+  hidden: { opacity: 0, x: 60 },
+  visible: { opacity: 1, x: 0, transition: { duration: 0.9, ease: 'easeOut' } },
+};
+
+const stagger = {
+  visible: {
+    transition: {
+      staggerChildren: 0.15,
+    },
+  },
+};
+
+/* ================= PAGE ================= */
 export default function ProfilPage() {
   return (
-    <div className="bg-[#FCF8F1] min-h-screen">
+    <div className="bg-[#FCF8F1] min-h-screen overflow-hidden">
       <Navbar />
 
       {/* ================= HERO ================= */}
-      <section className="pt-32 pb-24 px-6">
+      <section className="relative pt-32 pb-28 px-6 overflow-hidden">
+        {/* DECORATIVE BLOBS */}
+        <div className="absolute inset-0 pointer-events-none">
+          <div className="absolute -top-32 -left-32 w-[420px] h-[420px] bg-green-200/40 rounded-full blur-3xl" />
+          <div className="absolute top-40 -right-32 w-[420px] h-[420px] bg-emerald-300/30 rounded-full blur-3xl" />
+        </div>
+
         <motion.div
-          className="max-w-5xl mx-auto text-center"
-          variants={stagger}
+          className="relative max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-16 items-center"
           initial="hidden"
           animate="visible"
+          variants={stagger}
         >
-          <motion.span
-            variants={fadeUp}
-            className="inline-block mb-4 text-xs font-semibold px-4 py-1 rounded-full bg-green-100 text-green-700"
-          >
-            Profil Platform
-          </motion.span>
+          {/* TEXT */}
+          <motion.div variants={fadeLeft}>
+            <span className="inline-block mb-4 text-xs font-semibold px-4 py-1 rounded-full bg-green-100 text-green-700">
+              Tentang Platform
+            </span>
 
-          <motion.h1
-            variants={fadeUp}
-            className="text-4xl md:text-6xl font-extrabold text-gray-900 leading-tight"
-          >
-            Belajar Islam <br />
-            <span className="text-green-600">Lebih Terarah & Bermakna</span>
-          </motion.h1>
+            <h1 className="text-4xl md:text-6xl font-extrabold text-gray-900 leading-tight">
+              Platform Belajar Islam <br />
+              <span className="text-green-600">Modern & Terarah</span>
+            </h1>
 
-          <motion.p
-            variants={fadeUp}
-            className="mt-6 text-gray-600 max-w-3xl mx-auto text-lg"
+            <p className="mt-6 text-gray-700 text-lg max-w-xl">
+              Menghadirkan pembelajaran Islam yang terstruktur, relevan,
+              dan berkelanjutan dengan pendekatan teknologi masa kini.
+            </p>
+          </motion.div>
+
+          {/* VISUAL CARD */}
+          <motion.div
+            variants={fadeRight}
+            className="relative bg-white rounded-3xl shadow-2xl p-10"
           >
-            Platform pembelajaran Islam modern dengan kelas terstruktur,
-            pembimbing terpercaya, dan pendekatan relevan untuk generasi kini.
-          </motion.p>
+            <p className="text-2xl font-serif italic text-green-700 mb-6">
+              “Ilmu bukan sekadar diketahui, tetapi diamalkan
+              untuk membentuk peradaban.”
+            </p>
+
+            <div className="flex items-center gap-4 mt-8">
+              <div className="w-12 h-12 rounded-full bg-green-600 text-white flex items-center justify-center font-bold">
+                LP
+              </div>
+              <div>
+                <p className="font-semibold text-gray-900">Tim Pengembang</p>
+                <p className="text-sm text-gray-500">Learning Platform</p>
+              </div>
+            </div>
+          </motion.div>
         </motion.div>
       </section>
 
       {/* ================= SAMBUTAN ================= */}
-      <section className="px-6 py-24">
-        <div className="max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-14 items-center">
+      <section className="px-6 py-28">
+        <div className="max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-20 items-center">
+          {/* IMAGE */}
           <motion.div
-            variants={fadeUp}
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true }}
+            variants={fadeLeft}
+            className="relative lg:-ml-20"
+          >
+            <div className="rounded-3xl overflow-hidden shadow-2xl">
+              <img
+                src="/sambutan.jpeg"
+                alt="Sambutan"
+                className="w-full h-[360px] object-cover hover:scale-105 transition duration-700"
+              />
+            </div>
+          </motion.div>
+
+          {/* TEXT */}
+          <motion.div
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+            variants={fadeRight}
           >
             <h2 className="text-3xl font-bold text-gray-900 mb-6">
               Sambutan Pengelola
@@ -61,78 +124,54 @@ export default function ProfilPage() {
             </p>
 
             <p className="text-gray-700 leading-relaxed mb-4">
-              Kami menghadirkan ruang belajar Islam yang tidak hanya fokus pada
-              ilmu, tetapi juga adab, pemahaman kontekstual, dan keberlanjutan
-              belajar.
+              Platform ini dibangun sebagai ruang belajar Islam
+              yang tidak hanya menyampaikan ilmu, tetapi juga
+              menumbuhkan adab, pemahaman, dan konsistensi belajar.
             </p>
 
             <p className="text-gray-700 leading-relaxed">
-              Semoga platform ini menjadi wasilah kebaikan bagi umat.
+              Kami berharap setiap langkah belajar menjadi amal
+              jariyah yang berkelanjutan.
             </p>
-
-            <p className="mt-6 font-semibold text-gray-900">
-              — Tim Pengembang
-            </p>
-          </motion.div>
-
-          <motion.div
-            variants={fade}
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true }}
-            className="rounded-3xl overflow-hidden shadow-xl"
-          >
-            <img
-              src="/sambutan.jpeg"
-              alt="Sambutan"
-              className="w-full h-[340px] object-cover transition duration-700 hover:scale-105"
-            />
           </motion.div>
         </div>
       </section>
 
       {/* ================= VISI MISI ================= */}
-      <section className="px-6 py-24 bg-white">
+      <section className="px-6 py-28 bg-white">
         <motion.div
-          className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-12"
-          variants={stagger}
+          className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-14"
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true }}
+          variants={stagger}
         >
-          <motion.div
-            variants={fadeUp}
-            className="bg-white rounded-3xl shadow-lg p-10
-                       hover:shadow-xl transition"
-          >
+          {/* VISI */}
+          <motion.div variants={fadeUp} className="relative bg-white rounded-3xl p-12 shadow-lg">
+            <span className="absolute left-0 top-10 h-20 w-1 bg-green-600 rounded-full" />
             <h3 className="text-2xl font-bold mb-4">Visi</h3>
             <p className="text-gray-700 leading-relaxed">
               Menjadi platform pembelajaran Islam terpercaya
-              dalam membentuk generasi berilmu dan berakhlak mulia.
+              dalam membentuk generasi berilmu, beradab,
+              dan berkontribusi positif bagi umat.
             </p>
           </motion.div>
 
-          <motion.div
-            variants={fadeUp}
-            className="bg-white rounded-3xl shadow-lg p-10
-                       hover:shadow-xl transition"
-          >
+          {/* MISI */}
+          <motion.div variants={fadeUp} className="relative bg-white rounded-3xl p-12 shadow-lg">
+            <span className="absolute left-0 top-10 h-20 w-1 bg-green-600 rounded-full" />
             <h3 className="text-2xl font-bold mb-6">Misi</h3>
             <ul className="space-y-4">
               {[
-                'Menyediakan kelas Islam terstruktur',
-                'Menghadirkan pengajar berpengalaman',
-                'Menggabungkan teknologi dan dakwah',
-                'Mendukung pembelajaran berkelanjutan',
+                'Kelas Islam terstruktur dan bertahap',
+                'Pengajar kompeten dan berpengalaman',
+                'Teknologi untuk dakwah berkelanjutan',
+                'Lingkungan belajar yang aman dan relevan',
               ].map((item, i) => (
-                <motion.li
-                  key={i}
-                  variants={fadeUp}
-                  className="flex gap-3 text-gray-700"
-                >
+                <li key={i} className="flex gap-3 text-gray-700">
                   <span className="text-green-600 font-bold">✓</span>
                   {item}
-                </motion.li>
+                </li>
               ))}
             </ul>
           </motion.div>
@@ -140,25 +179,25 @@ export default function ProfilPage() {
       </section>
 
       {/* ================= NILAI ================= */}
-      <section className="px-6 py-24">
+      <section className="px-6 py-28">
         <motion.div
           className="max-w-6xl mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8"
-          variants={stagger}
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true }}
+          variants={stagger}
         >
           {[
-            { title: 'Amanah', desc: 'Menjaga kepercayaan dan tanggung jawab.' },
-            { title: 'Profesional', desc: 'Dikelola secara serius dan rapi.' },
-            { title: 'Relevan', desc: 'Sesuai kebutuhan umat masa kini.' },
-            { title: 'Berkelanjutan', desc: 'Belajar tanpa henti.' },
+            { title: 'Amanah', desc: 'Menjaga kepercayaan dalam setiap proses.' },
+            { title: 'Profesional', desc: 'Dikelola dengan standar tinggi.' },
+            { title: 'Relevan', desc: 'Sesuai tantangan zaman.' },
+            { title: 'Berkelanjutan', desc: 'Belajar sepanjang hayat.' },
           ].map((item, i) => (
             <motion.div
               key={i}
               variants={fadeUp}
-              className="bg-white rounded-2xl p-8 text-center
-                         shadow hover:-translate-y-2 hover:shadow-xl transition"
+              className="bg-white rounded-2xl p-8 text-center shadow
+                         hover:-translate-y-3 hover:shadow-xl transition"
             >
               <h4 className="font-bold mb-3 text-lg">{item.title}</h4>
               <p className="text-sm text-gray-600">{item.desc}</p>
@@ -166,21 +205,29 @@ export default function ProfilPage() {
           ))}
         </motion.div>
       </section>
-      <section className="px-6 py-24">
-        <div className="max-w-4xl mx-auto bg-green-600 rounded-3xl p-14 text-center text-white shadow-xl">
+
+      {/* ================= CTA ================= */}
+      <section className="px-6 py-28">
+        <motion.div
+          initial={{ opacity: 0, scale: 0.95 }}
+          whileInView={{ opacity: 1, scale: 1 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.8 }}
+          className="max-w-5xl mx-auto bg-green-600 rounded-[40px] p-16 text-center text-white shadow-2xl"
+        >
           <h2 className="text-3xl md:text-4xl font-bold mb-6">
-            Mulai Perjalanan Belajarmu Hari Ini
+            Siap Memulai Perjalanan Belajarmu?
           </h2>
           <p className="mb-8 text-green-100 text-lg">
-            Bergabung bersama ribuan peserta lain dalam belajar Islam
-            secara terarah dan bermakna.
+            Bergabung dan tumbuh bersama komunitas pembelajar Islam modern.
           </p>
-          <button className="px-10 py-4 rounded-full bg-white text-green-700 font-semibold hover:bg-gray-100 transition">
+          <button className="px-12 py-4 rounded-full bg-white text-green-700 font-semibold hover:bg-gray-100 transition">
             Lihat Program Kelas
           </button>
-        </div>
+        </motion.div>
       </section>
-      <Footer/>
+
+      <Footer />
     </div>
   );
 }

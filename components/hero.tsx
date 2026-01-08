@@ -26,7 +26,7 @@ export default function HeroSection() {
       {/* Header */}
 
       {/* Hero Section */}
-      <section className="bg-[#FCF8F1] bg-opacity-30 pt-24 pb-10 sm:py-16 lg:py-24 ">
+      <section className="bg-[#FCF8F1] bg-opacity-30 sm:py-16 lg:py-24 xl:py-[10%]">
         <div className="px-4 mx-auto max-w-7xl sm:px-6 lg:px-8">
           <div className="grid items-center grid-cols-1 gap-12 lg:grid-cols-2">
             {/* Text */}
